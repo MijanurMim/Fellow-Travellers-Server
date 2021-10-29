@@ -20,6 +20,11 @@ console.log(uri);
 
 async function run() {
   try {
+    await client.connect();
+    console.log("database connected to fellow");
+    const database = client.db("fellow_Travellers");
+    const packageCollection = database.collection("packages");
+    const bookedPackages = database.collection("booked_Packages");
   } finally {
     // await client.close()
   }
