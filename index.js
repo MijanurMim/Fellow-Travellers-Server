@@ -25,6 +25,24 @@ async function run() {
     const database = client.db("fellow_Travellers");
     const packageCollection = database.collection("packages");
     const bookedPackages = database.collection("booked_Packages");
+
+    // ADD PACKAGES
+    app.post("/addEvent", async (req, res) => {
+      console.log(req.body);
+      const result = await packageCollection.insertOne(req.body);
+      console.log(result);
+    });
+    // Searched Packages
+    app.get("/searchPackages", async (req, res) => {
+      console.log(req.query.search);
+      const result = await packageCollection
+        .find({
+          title: { $regex: req.query.search },
+        })
+        .toArray();
+      res.send(result);
+      console.log(result);
+    });
   } finally {
     // await client.close()
   }
