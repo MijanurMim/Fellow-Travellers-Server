@@ -25,7 +25,7 @@ async function run() {
     console.log("database connected to fellow");
     const database = client.db("fellow_Travellers");
     const packageCollection = database.collection("packages");
-    const serviceCollection = database.collection("services");
+
     const membersCollection = database.collection("members");
     const bookedPackages = database.collection("booked_Packages");
 
@@ -33,13 +33,6 @@ async function run() {
     app.post("/addEvent", async (req, res) => {
       console.log(req.body);
       const result = await packageCollection.insertOne(req.body);
-      console.log(result);
-    });
-
-    // ADD SERVICES
-    app.post("/addServices", async (req, res) => {
-      console.log(req.body);
-      const result = await serviceCollection.insertOne(req.body);
       console.log(result);
     });
 
@@ -70,11 +63,6 @@ async function run() {
     // Get ALL Packages
     app.get("/allPackages", async (req, res) => {
       const result = await packageCollection.find({}).toArray();
-      res.send(result);
-    });
-    // Get ALL Services
-    app.get("/allServices", async (req, res) => {
-      const result = await serviceCollection.find({}).toArray();
       res.send(result);
     });
 
