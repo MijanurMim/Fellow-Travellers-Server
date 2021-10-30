@@ -89,11 +89,20 @@ async function run() {
 
     // My Bookings
     app.get("/myBookings/:email", async (req, res) => {
-      // console.log(req.params.email);
+      // console.log(req.params);
       const result = await packageCollection
         .find({ email: req.params.email })
         .toArray();
       res.send(result);
+      // console.log(result);
+    });
+    // My Booking details
+    app.post("/myBookings/:email", async (req, res) => {
+      const result = await packageCollection
+        .find({ email: req.params.email })
+        .toArray();
+      res.send(result);
+      // console.log(result);
     });
   } finally {
     // await client.close()
