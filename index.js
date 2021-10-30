@@ -27,7 +27,7 @@ async function run() {
     const packageCollection = database.collection("packages");
 
     const membersCollection = database.collection("members");
-    const bookedPackages = database.collection("booked_Packages");
+    // const bookedPackages = database.collection("booked_Packages");
 
     // ADD PACKAGES
     app.post("/addEvent", async (req, res) => {
