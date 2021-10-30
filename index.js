@@ -87,6 +87,15 @@ async function run() {
       res.send(result);
     });
 
+    // Single Package Details
+    app.get("/packageDetails/:id", async (req, res) => {
+      // console.log(req.params.id);
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await packageCollection.findOne(query);
+      res.json(result);
+    });
+
     // My Bookings
     app.get("/myBookings/:email", async (req, res) => {
       // console.log(req.params);
