@@ -104,6 +104,16 @@ async function run() {
       res.send(result);
       // console.log(result);
     });
+
+    // Update status
+    app.put("/updateStatus/:id", async (req, res) => {
+      console.log(req.params.id);
+      const result = await packageCollection.updateOne(
+        { _id: ObjectId(req.params.id) },
+        { $set: { status: "Approved" } }
+      );
+      res.send(result);
+    });
   } finally {
     // await client.close()
   }
