@@ -25,6 +25,7 @@ async function run() {
     console.log("database connected to fellow");
     const database = client.db("fellow_Travellers");
     const packageCollection = database.collection("packages");
+    const bookingCollection = database.collection("bookings");
 
     const membersCollection = database.collection("members");
     // const bookedPackages = database.collection("booked_Packages");
@@ -33,6 +34,13 @@ async function run() {
     app.post("/addEvent", async (req, res) => {
       console.log(req.body);
       const result = await packageCollection.insertOne(req.body);
+      console.log(result);
+    });
+
+    // ADD Boookings
+    app.post("/addNewBooking", async (req, res) => {
+      console.log(req.body);
+      const result = await bookingCollection.insertOne(req.body);
       console.log(result);
     });
 
@@ -60,9 +68,16 @@ async function run() {
       const result = await membersCollection.find({}).toArray();
       res.send(result);
     });
+
     // Get ALL Packages
     app.get("/allPackages", async (req, res) => {
       const result = await packageCollection.find({}).toArray();
+      res.send(result);
+    });
+
+    // GET all Bookings
+    app.get("/allBookings", async (req, res) => {
+      const result = await bookingCollection.find({}).toArray();
       res.send(result);
     });
 
@@ -87,7 +102,7 @@ async function run() {
     // My Bookings
     app.get("/myBookings/:email", async (req, res) => {
       // console.log(req.params);
-      const result = await packageCollection
+      const result = await bookingCollection
         .find({ email: req.params.email })
         .toArray();
       res.send(result);
@@ -95,7 +110,7 @@ async function run() {
     });
     // My Booking details
     app.post("/myBookings/:email", async (req, res) => {
-      const result = await packageCollection
+      const result = await bookingCollection
         .find({ email: req.params.email })
         .toArray();
       res.send(result);
@@ -105,7 +120,7 @@ async function run() {
     // Update status
     app.put("/updateStatus/:id", async (req, res) => {
       console.log(req.params.id);
-      const result = await packageCollection.updateOne(
+      const result = await bookingCollection.updateOne(
         { _id: ObjectId(req.params.id) },
         { $set: { status: "Approved" } }
       );
