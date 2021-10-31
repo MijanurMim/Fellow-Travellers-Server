@@ -89,6 +89,13 @@ async function run() {
       });
       res.send(result);
     });
+    // Delete Booking
+    app.delete("/deleteBooking/:id", async (req, res) => {
+      const result = await bookingCollection.deleteOne({
+        _id: ObjectId(req.params.id),
+      });
+      res.send(result);
+    });
 
     // Single Package Details
     app.get("/packageDetails/:id", async (req, res) => {
